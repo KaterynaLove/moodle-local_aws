@@ -87,7 +87,7 @@ class ObjectUploader implements PromisorInterface
                 'Key'    => $this->key,
                 'Body'   => $this->body,
                 'ACL'    => $this->acl,
-                'AddContentMD5' => $this->addContentMD5
+                'ContentMD5' => base64_encode(md5($this->body, true))
             ] + $this->options['params']);
         if (is_callable($this->options['before_upload'])) {
             $this->options['before_upload']($command);

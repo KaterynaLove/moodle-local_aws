@@ -347,7 +347,7 @@ class Transfer implements PromisorInterface
         $args = $this->s3Args;
         $args['SourceFile'] = $filename;
         $args['Key'] = $this->createS3Key($filename);
-        $args['AddContentMD5'] = $this->addContentMD5;
+        $args['ContentMD5'] = base64_encode(md5_file($filename, true));
         $command = $this->client->getCommand('PutObject', $args);
         $this->before and call_user_func($this->before, $command);
 
