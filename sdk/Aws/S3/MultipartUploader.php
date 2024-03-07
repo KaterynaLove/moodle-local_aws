@@ -125,6 +125,12 @@ class MultipartUploader extends AbstractUploader
         }
 
         $body->seek(0);
+
+        if (isset($config['add_content_md5']) && $config['add_content_md5'] === true) {
+            $md5 = base64_encode(md5(stream_get_contents($body), true));
+            $body->seek(0);
+            $data['ContentMD5'] = $md5;
+        }
         $data['Body'] = $body;
 
         if (isset($config['add_content_md5'])
